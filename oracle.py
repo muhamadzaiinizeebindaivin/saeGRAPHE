@@ -49,6 +49,7 @@ def trouver_eloignement_max():
 
 def main():
     global G
+    requetes.txt_to_json('data_100.txt', 'data_100.json')
     G = requetes.json_vers_nx('data_100.json')
     root = tk.Tk()
     root.title("Application de Collaboration des Acteurs")

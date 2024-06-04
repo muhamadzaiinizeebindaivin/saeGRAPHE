@@ -1,13 +1,8 @@
 import json
 import networkx as nx
 import matplotlib.pyplot as plt
-import json
-import networkx as nx
-import matplotlib.pyplot as plt
 
-import json  # Importer le module json pour travailler avec des données JSON
 
-#6.1.1
 def txt_to_json(input_file, output_file):
     """
     Lit un fichier texte contenant des objets JSON sur chaque ligne et les écrit dans un nouveau fichier JSON.
@@ -38,10 +33,8 @@ def txt_to_json(input_file, output_file):
         # Afficher un message d'erreur en cas d'exception
         print("Il y a une erreur !", str(e))
 
-# Appeler la fonction avec un fichier texte d'entrée et un fichier JSON de sortie
-txt_to_json('data_100.txt', 'data_100.json')
 
-#6.1.2
+
 def json_vers_nx(chemin):
     """
     Convertit un fichier JSON contenant des informations de distribution de films en un graphe NetworkX.
@@ -85,10 +78,6 @@ def json_vers_nx(chemin):
     return G
 
 
-# Créer le graphe à partir du fichier JSON
-graph = json_vers_nx('data_100.json')
-
-#6.2
 def collaborateurs_communs(G, u, v):
     """
     Trouve les collaborateurs communs entre deux acteurs/actrices dans un graphe.
@@ -120,8 +109,6 @@ def collaborateurs_communs(G, u, v):
     return collaborateurs_communs
 
 
-# Afficher les collaborateurs communs entre 'Jason Patric' et 'Ricky Parker'
-collaborateurs_communs(graph, 'Jason Patric', 'Bruce Payne')
  
 def collaborateurs_proches(G, u, k):
     """
@@ -162,9 +149,6 @@ def collaborateurs_proches(G, u, k):
     
     return collaborateurs
 
-# Exemple d'utilisation de la fonction
-collaborateurs_proches(graph, 'Jason Patric', 2)
-
 
 def est_proche(G, u, v, k=1):
     """
@@ -188,11 +172,6 @@ def est_proche(G, u, v, k=1):
         return True
     else:
         return False
-
-# Exemple d'utilisation de la fonction
-#est_proche(graph, "Al Pacino", "Cornelia Sharpe")
-#est_proche(graph, "Al Pacino", "Peter DeLuise")
-
 
 
 def distance_naive(G, u, v):
@@ -229,10 +208,6 @@ def distance_naive(G, u, v):
         ensemble_voisin_u = collaborateurs_proches(G, u, res)
 
     return res
-
-# Exemple d'utilisation de la fonction
-distance_naive(graph, "Al Pacino", "Cornelia Sharpe")
-distance_naive(graph, "Al Pacino", "Peter DeLuise")
 
 
 def distance(G, u, v):
@@ -278,13 +253,6 @@ def distance(G, u, v):
     
     return distance
 
-# Charger le graphe à partir d'un fichier JSON
-graph = json_vers_nx('data_100.json')
-
-# Exemple d'utilisation de la fonction
-#print(distance(graph, "Marlon Brando", "Richard Jordan"))
-#print(distance(graph, "Jack Kehoe", "Talia Shire"))
-
 
 def centralite(G, u):
     try:
@@ -311,6 +279,7 @@ def centralite(G, u):
     except Exception as e:
         print(f"Une erreur inattendue est survenue : {e}")
         return None
+
 
 # Fonction pour trouver le nœud le plus central dans le graphe G
 def centre_hollywood(G):
