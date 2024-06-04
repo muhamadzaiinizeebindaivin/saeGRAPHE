@@ -284,3 +284,57 @@ graph = json_vers_nx('data_100.json')
 # Exemple d'utilisation de la fonction
 #print(distance(graph, "Marlon Brando", "Richard Jordan"))
 print(distance(graph, "Jack Kehoe", "Talia Shire"))
+
+
+# Fonction pour calculer la centralité d'un nœud u dans le graphe G
+def centralite(G, u):
+
+    centralite = 0  # Initialiser la centralité à 0
+
+    if u not in G.nodes():  # Vérifier si u est un nœud du graphe
+        return None
+    
+    for acteur in G.nodes():  # Parcourir tous les nœuds du graphe
+
+        if u != acteur:  # Éviter de calculer la distance du nœud à lui-même
+
+            distance = nx.shortest_path_length(G, acteur, u)  # Calculer la distance la plus courte entre acteur et u
+
+            if distance > centralite:  # Mettre à jour la centralité si la distance est plus grande
+                centralite = distance
+    
+    return centralite  # Retourner la centralité maximale trouvée
+
+
+# Fonction pour trouver le nœud le plus central dans le graphe G
+def centre_hollywood(G):
+
+    centralite_min = None  # Initialiser la centralité minimale à None
+    acteur_central = None  # Initialiser l'acteur central à None
+
+    for acteur in G.nodes():  # Parcourir tous les nœuds du graphe
+
+        centre = centralite(G, acteur)  # Calculer la centralité de l'acteur
+
+        if centralite_min is None or centre > centralite_min:  # Mettre à jour la centralité minimale et l'acteur central
+            centralite_min = centre
+            acteur_central = acteur
+
+    return acteur_central  # Retourner l'acteur le plus central
+
+
+# Fonction pour trouver la distance maximale entre deux nœuds dans le graphe G
+def eloignement_max(G):
+    
+    distance_max = 0  # Initialiser la distance maximale à 0
+
+    for u in G.nodes():  # Parcourir tous les nœuds du graphe
+
+        for v in G.nodes():  # Parcourir à nouveau tous les nœuds du graphe pour calculer les distances
+
+            distance = nx.shortest_path_length(G, u, v)  # Calculer la distance la plus courte entre u et v
+
+            if distance > distance_max:  # Mettre à jour la distance maximale si la distance actuelle est plus grande
+                distance_max = distance
+
+    return distance_max  # Retourner la distance maximale trouvée
