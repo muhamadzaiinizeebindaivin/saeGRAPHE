@@ -190,8 +190,8 @@ def est_proche(G, u, v, k=1):
         return False
 
 # Exemple d'utilisation de la fonction
-est_proche(graph, "Al Pacino", "Cornelia Sharpe")
-est_proche(graph, "Al Pacino", "Peter DeLuise")
+#est_proche(graph, "Al Pacino", "Cornelia Sharpe")
+#est_proche(graph, "Al Pacino", "Peter DeLuise")
 
 
 
@@ -216,7 +216,7 @@ def distance_naive(G, u, v):
     # Vérifier s'il n'y a pas de chemin entre u et v
     if not nx.has_path(G, u, v):
         print("Il n'y a pas de chemin entre " + u + " et " + v)
-        return None
+        return "hi"
     
     res = 0
     # Obtenir l'ensemble des voisins de u à distance res (initialement 0)
@@ -283,28 +283,34 @@ graph = json_vers_nx('data_100.json')
 
 # Exemple d'utilisation de la fonction
 #print(distance(graph, "Marlon Brando", "Richard Jordan"))
-print(distance(graph, "Jack Kehoe", "Talia Shire"))
+#print(distance(graph, "Jack Kehoe", "Talia Shire"))
 
 
-# Fonction pour calculer la centralité d'un nœud u dans le graphe G
 def centralite(G, u):
+    try:
+        if u not in G.nodes():
+            raise ValueError(f"Le nœud {u} n'existe pas dans le graphe.")
 
-    centralite = 0  # Initialiser la centralité à 0
+        centralite_max = 0  # Initialiser la centralité maximale à 0
 
-    if u not in G.nodes():  # Vérifier si u est un nœud du graphe
+        for acteur in G.nodes():
+            if u != acteur:
+                try:
+                    distance = nx.shortest_path_length(G, acteur, u)
+                    if distance > centralite_max:
+                        centralite_max = distance
+                except nx.NetworkXNoPath:
+                    print(f"Pas de chemin entre {acteur} et {u}.")
+                except Exception as e:
+                    print(f"Erreur lors du calcul de la distance entre {acteur} et {u} : {e}")
+
+        return centralite_max
+
+    except ValueError as ve:
+        print(f"Erreur de valeur : {ve}")
+    except Exception as e:
+        print(f"Une erreur inattendue est survenue : {e}")
         return None
-    
-    for acteur in G.nodes():  # Parcourir tous les nœuds du graphe
-
-        if u != acteur:  # Éviter de calculer la distance du nœud à lui-même
-
-            distance = nx.shortest_path_length(G, acteur, u)  # Calculer la distance la plus courte entre acteur et u
-
-            if distance > centralite:  # Mettre à jour la centralité si la distance est plus grande
-                centralite = distance
-    
-    return centralite  # Retourner la centralité maximale trouvée
-
 
 # Fonction pour trouver le nœud le plus central dans le graphe G
 def centre_hollywood(G):
@@ -325,16 +331,27 @@ def centre_hollywood(G):
 
 # Fonction pour trouver la distance maximale entre deux nœuds dans le graphe G
 def eloignement_max(G):
+    try:
+        if len(G) == 0:
+            raise ValueError("Le graphe est vide.")
+
+        # Calculer toutes les distances les plus courtes entre les nœuds
+        all_distances = dict(nx.all_pairs_shortest_path_length(G))
+
+        # Initialiser la distance maximale à 0
+        distance_max = 0
+
+        # Parcourir toutes les distances calculées
+        for distances in all_distances.values():
+            max_distance_for_node = max(distances.values())
+            if max_distance_for_node > distance_max:
+                distance_max = max_distance_for_node
+
+        return distance_max  # Retourner la distance maximale trouvée
     
-    distance_max = 0  # Initialiser la distance maximale à 0
-
-    for u in G.nodes():  # Parcourir tous les nœuds du graphe
-
-        for v in G.nodes():  # Parcourir à nouveau tous les nœuds du graphe pour calculer les distances
-
-            distance = nx.shortest_path_length(G, u, v)  # Calculer la distance la plus courte entre u et v
-
-            if distance > distance_max:  # Mettre à jour la distance maximale si la distance actuelle est plus grande
-                distance_max = distance
-
-    return distance_max  # Retourner la distance maximale trouvée
+    except ValueError as ve:
+        print(f"Erreur de valeur : {ve}")
+        return None
+    except Exception as e:
+        print(f"Une erreur inattendue est survenue : {e}")
+        return None

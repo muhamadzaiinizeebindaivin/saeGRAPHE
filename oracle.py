@@ -19,11 +19,14 @@ def trouver_collaborateurs_proches():
     messagebox.showinfo("Collaborateurs proches", str(result))
 
 def verifier_est_proche():
-    u = simpledialog.askstring("Acteur 1", "Entrez le nom du premier acteur:")
-    v = simpledialog.askstring("Acteur 2", "Entrez le nom du deuxième acteur:")
-    k = simpledialog.askinteger("Distance", "Entrez la distance maximale (par défaut 1):", valeur_initial=1)
-    result = requetes.est_proche(G, u, v, k)
-    messagebox.showinfo("Est proche", str(result))
+    try:
+        u = simpledialog.askstring("Acteur 1", "Entrez le nom du premier acteur:")
+        v = simpledialog.askstring("Acteur 2", "Entrez le nom du deuxième acteur:")
+        k = simpledialog.askinteger("Distance", "Entrez la distance maximale (par défaut 1):", initialvalue=1)
+        result = requetes.est_proche(G, u, v, k)  # Assuming G is defined somewhere
+        messagebox.showinfo("Est proche", str(result))
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Une erreur est survenue : {e}")
 
 def trouver_distance():
     acteur1 = simpledialog.askstring("Acteur 1", "Entrez le nom du premier acteur:")
