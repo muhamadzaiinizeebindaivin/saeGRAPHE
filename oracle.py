@@ -3,7 +3,7 @@ import networkx as nx
 import tkinter as tk
 from tkinter import messagebox, simpledialog
 import requetes 
-#Pour l'applicaion graphique
+
 
 
 def trouver_collaborateurs_communs():
@@ -23,7 +23,7 @@ def verifier_est_proche():
         u = simpledialog.askstring("Acteur 1", "Entrez le nom du premier acteur:")
         v = simpledialog.askstring("Acteur 2", "Entrez le nom du deuxième acteur:")
         k = simpledialog.askinteger("Distance", "Entrez la distance maximale (par défaut 1):", initialvalue=1)
-        result = requetes.est_proche(G, u, v, k)  # Assuming G is defined somewhere
+        result = requetes.est_proche(G, u, v, k)  
         messagebox.showinfo("Est proche", str(result))
     except Exception as e:
         messagebox.showerror("Erreur", f"Une erreur est survenue : {e}")
@@ -55,28 +55,28 @@ def main():
     root.title("Application de Collaboration des Acteurs")
 
     btn_collaborateurs_communs = tk.Button(root, text="Trouver les collaborateurs communs", command=trouver_collaborateurs_communs)
-    btn_collaborateurs_communs.pack(fill=tk.X)
+    btn_collaborateurs_communs.pack(fill=tk.X,padx=10, pady=5)
 
     btn_collaborateurs_proches = tk.Button(root, text="Trouver les collaborateurs proches", command=trouver_collaborateurs_proches)
-    btn_collaborateurs_proches.pack(fill=tk.X)
+    btn_collaborateurs_proches.pack(fill=tk.X,padx=10, pady=5)
 
     btn_est_proche = tk.Button(root, text="Vérifier si deux acteurs sont proches", command=verifier_est_proche)
-    btn_est_proche.pack(fill=tk.X)
+    btn_est_proche.pack(fill=tk.X,padx=10, pady=5)
 
     btn_distance = tk.Button(root, text="Trouver la distance entre deux acteurs", command=trouver_distance)
-    btn_distance.pack(fill=tk.X)
+    btn_distance.pack(fill=tk.X,padx=10, pady=5)
 
     btn_centralite = tk.Button(root, text="Trouver la centralité d'un acteur", command=trouver_centralite)
-    btn_centralite.pack(fill=tk.X)
+    btn_centralite.pack(fill=tk.X,padx=10, pady=5)
 
     btn_centre_hollywood = tk.Button(root, text="Trouver le centre d'Hollywood", command=trouver_centre_hollywood)
-    btn_centre_hollywood.pack(fill=tk.X)
+    btn_centre_hollywood.pack(fill=tk.X,padx=10, pady=5)
 
     btn_eloignement_max = tk.Button(root, text="Trouver l'éloignement maximal", command=trouver_eloignement_max)
-    btn_eloignement_max.pack(fill=tk.X)
+    btn_eloignement_max.pack(fill=tk.X,padx=10, pady=5)
 
     btn_quitter = tk.Button(root, text="Quitter", command=root.quit)
-    btn_quitter.pack(fill=tk.X)
+    btn_quitter.pack(fill=tk.X,padx=10, pady=5)
 
     root.mainloop()
 
