@@ -34,7 +34,7 @@ class TestGraphUtils(unittest.TestCase):
 
     # Test pour la fonction est_proche
     def test_est_proche(self):
-        result = est_proche(self.G, "Acteur A", "Acteur D", k=2)
+        result = est_proche(self.G, "Acteur A", "Acteur C", k=1)
         self.assertTrue(result)
 
     # Test pour la fonction distance_naive
