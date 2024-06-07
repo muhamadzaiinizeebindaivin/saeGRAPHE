@@ -291,7 +291,7 @@ def centre_hollywood(G):
 
         centre = centralite(G, acteur)  # Calculer la centralité de l'acteur
 
-        if centralite_min is None or centre > centralite_min:  # Mettre à jour la centralité minimale et l'acteur central
+        if centralite_min is None or centre < centralite_min:  # Mettre à jour la centralité minimale et l'acteur central
             centralite_min = centre
             acteur_central = acteur
 
